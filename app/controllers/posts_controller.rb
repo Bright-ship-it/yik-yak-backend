@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
     def index
-        render json: Post.all {|post| PostSerializer.new(post)}
+        render json: Post.all.map {|post| PostSerializer.new(post)}
     end
 
     def  create
@@ -11,6 +11,11 @@ class PostsController < ApplicationController
             render json: PostSerializer.new(post)
         end
 
+    end
+
+    def destroy
+        post = post.find(params[:id])
+        post.destroy
     end
 
     private
